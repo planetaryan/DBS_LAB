@@ -1,0 +1,64 @@
+create table Employee(EmpNo numeric(3),EmpName varchar(20) not null,Gender varchar(1) not null,Salary numeric(6,2) not null,Address varchar(30) not null, DNo numeric(3),primary key(EmpNo),check(Gender in('M','F')));
+
+create table Department(DeptNo numeric(3),DeptName varchar(10),Location varchar(10),primary key(DeptNo),unique(DeptName));
+
+alter table Employee add constraint fk foreign key(Dno) references Department(DeptNo);
+
+insert into Employee values(123,'Aman','M',1234.56,'Mangalore',001);
+insert into Employee values(456,'Mahesh','M',7658.19,'Delhi',002);
+insert into Employee values(789,'Ayushi','F',8846.66,'Manipal',002);
+insert into Employee values(102,'Aditi','F',4566.39,'Manipal',004);
+insert into Employee values(103,'Raman','M',5656.56,'Manipal',005);
+
+
+
+insert into Department values(001,'CSE','Mangalore');
+insert into Department values(002,'ECE','Delhi');
+insert into Department values(003,'EEE','Manipal');
+insert into Department values(004,'ICT','Manipal');
+insert into Department values(005,'CIE','Manipal');
+
+
+insert into Employee values(123,'Rakesh','M',1111.11,'Manipal',001); //unique constraint violated as EmpNo is primary key
+
+
+insert into Employee values(104,'Rakesh','M',1111.11,'Manipal',006)//foreign key constraint violated as 006 not in DeptNo in Department table
+
+insert into Department values(NULL,'CSE','Delhi');// cannot insert Null into primary key
+
+
+delete from Department where DeptNo=001;//foreign key constraint violated child record found
+
+update Employee set DNo=006 where EmpName='Raman';// foreign key constraint violated parent key not found
+
+alter table employee drop constraint fk;
+
+rename Department to Dept
+alter table Employee add constraint fk foreign key(DNo) references Department(DeptNo) ON DELETE CASCADE;
+
+alter table employee modify salary default 1000;
+
+
+
+//@path to execute file(1.University,2.smallRelations)
+
+select name,dept_name from student;
+
+select* from instructor where dept_name='Comp. Sci.';
+
+select title from course where dept_name='Comp. Sci.' and credits=3;
+
+select Takes.course_id,title from Takes,Course where Takes.ID=12345 and takes.course_id=course.course_id;
+
+select* from instructor where salary>40000 and salary<90000;
+select* from instructor where salary between 40000 and 90000;
+
+
+
+
+
+
+
+
+
+
