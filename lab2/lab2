@@ -37,7 +37,7 @@ rename Department to Dept
 alter table Employee add constraint fk foreign key(DNo) references Department(DeptNo) ON DELETE CASCADE;
 
 alter table employee modify salary default 1000;
-
+insert into Employee values(104,'Ramesh','M',default,'Manipal',005);
 
 
 //@path to execute file(1.University,2.smallRelations)
