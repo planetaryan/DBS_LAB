@@ -1,0 +1,31 @@
+select id from teaches group by id having count(course_id)>=1;
+
+select student.name,course.title,section.year from student,course,section,takes where student.id=takes.id and course.course_id=takes.course_id and course.course_id=section.course_id and takes.sec_id=section.sec_id and section.room_number=100;
+
+select student.name,course.title as "c-name" from student,course,takes where student.id=takes.id and course.course_id=takes.course_id and takes.year=2010;
+
+select instructor.name,instructor.salary as "inst-salary" from instructor where salary some(select salary from instructor where dept_name='Comp. Sci.');
+
+select name from instructor where dept_name like '%ec%';
+
+select name,length(name) from student;
+
+select dept_name,substr(dept_name,3,3) from instructor;
+
+select upper(name) from instructor;
+
+select nvl(prereq_id,1) from prereq;
+
+select salary,round(salary/3,2) from instructor;
+
+alter table employee add DOB date;
+
+update employee set DOB=to_date('23011990','DDMMYYYY');
+
+select to_date(DOB,'DD-MON-YYYY') from employee;
+
+select to_date(DOB,'DD-MON-YY') from employee;
+
+select to_date(DOB,'DD-MM-YY') from employee;
+
+select to_char(DOB) from employee;

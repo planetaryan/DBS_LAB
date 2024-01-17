@@ -1,0 +1,10 @@
+ select course.title from course,teaches where course.course_id=teaches.course_id and semester='Fall' and year=2009 union select course.title from course,teaches where course.course_id=teaches.course_id and semester='Spring' and year=2010;
+
+ select course.title from course,teaches where course.course_id=teaches.course_id and semester='Fall' and year=2009 intersect select course.title from course,teaches where course.course_id=teaches.course_id and semester='Spring' and year=2010;
+
+ select course.title from course,teaches where course.course_id=teaches.course_id and semester='Fall' and year=2009 minus select course.title from course,teaches where course.course_id=teaches.course_id and semester='Spring' and year=2010;
+
+select course.course_id from course minus select takes.course_id from takes;  
+
+ select course.title from course,section where course.course_id=section.course_id and semester='Fall' and year=2009 and course.title in( select course.title from course,section where course.course_id=section.course_id and semester='Spring' and year=2010);
+
