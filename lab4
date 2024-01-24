@@ -1,0 +1,544 @@
+SQL> select course_id,count(id) from takes group by course_id;
+
+COURSE_I  COUNT(ID)
+-------- ----------
+HIS-351           1
+EE-181            1
+CS-101            7
+CS-347            2
+FIN-201           1
+CS-319            2
+BIO-101           1
+PHY-101           1
+CS-315            2
+CS-190            2
+MU-199            1
+
+COURSE_I  COUNT(ID)
+-------- ----------
+BIO-301           1
+
+12 rows selected.
+
+SQL> select c.course_id,count(t.id) from takes t,course c where t.id=s.id group by c.course_id;
+select c.course_id,count(t.id) from takes t,course c where t.id=s.id group by c.course_id
+                                                                *
+ERROR at line 1:
+ORA-00904: "S"."ID": invalid identifier
+
+
+SQL> select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id;
+select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id
+                                                                       *
+ERROR at line 1:
+ORA-00904: "C"."COURSE_ID"."ID": invalid identifier
+
+
+SQL> select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id;
+select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id
+                                                                       *
+ERROR at line 1:
+ORA-00904: "C"."COURSE_ID"."ID": invalid identifier
+
+
+SQL> select* from course;
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+BIO-101  Intro. to Biology                                  Biology
+         4
+
+BIO-301  Genetics                                           Biology
+         4
+
+BIO-399  Computational Biology                              Biology
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+CS-101   Intro. to Computer Science                         Comp. Sci.
+         4
+
+CS-190   Game Design                                        Comp. Sci.
+         4
+
+CS-315   Robotics                                           Comp. Sci.
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+CS-319   Image Processing                                   Comp. Sci.
+         3
+
+CS-347   Database System Concepts                           Comp. Sci.
+         3
+
+EE-181   Intro. to Digital Systems                          Elec. Eng.
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+FIN-201  Investment Banking                                 Finance
+         3
+
+HIS-351  World History                                      History
+         3
+
+MU-199   Music Video Production                             Music
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+PHY-101  Physical Principles                                Physics
+         4
+
+
+13 rows selected.
+
+SQL> select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id;
+select c.course_id,count(t.id) from takes t,course c where t.course_id=c.course_id.id group by c.course_id
+                                                                       *
+ERROR at line 1:
+ORA-00904: "C"."COURSE_ID"."ID": invalid identifier
+
+
+SQL> select* from takes;
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+00128 CS-101   1        Fall         2009 A
+00128 CS-347   1        Fall         2009 A-
+12345 CS-101   1        Fall         2009 C
+12345 CS-190   2        Spring       2009 A
+12345 CS-315   1        Spring       2010 A
+12345 CS-347   1        Fall         2009 A
+19991 HIS-351  1        Spring       2010 B
+23121 FIN-201  1        Spring       2010 C+
+44553 PHY-101  1        Fall         2009 B-
+45678 CS-101   1        Fall         2009 F
+45678 CS-101   1        Spring       2010 B+
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+45678 CS-319   1        Spring       2010 B
+54321 CS-101   1        Fall         2009 A-
+54321 CS-190   2        Spring       2009 B+
+55739 MU-199   1        Spring       2010 A-
+76543 CS-101   1        Fall         2009 A
+76543 CS-319   2        Spring       2010 A
+76653 EE-181   1        Spring       2009 C
+98765 CS-101   1        Fall         2009 C-
+98765 CS-315   1        Spring       2010 B
+98988 BIO-101  1        Summer       2009 A
+98988 BIO-301  1        Summer       2010
+
+22 rows selected.
+
+SQL> select c.course_id,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.course_id;
+
+COURSE_I COUNT(T.ID)
+-------- -----------
+HIS-351            1
+EE-181             1
+CS-101             7
+CS-347             2
+FIN-201            1
+CS-319             2
+BIO-101            1
+PHY-101            1
+CS-315             2
+CS-190             2
+MU-199             1
+
+COURSE_I COUNT(T.ID)
+-------- -----------
+BIO-301            1
+
+12 rows selected.
+
+SQL> select course_id,count(id) from takes group by course_id;
+
+COURSE_I  COUNT(ID)
+-------- ----------
+HIS-351           1
+EE-181            1
+CS-101            7
+CS-347            2
+FIN-201           1
+CS-319            2
+BIO-101           1
+PHY-101           1
+CS-315            2
+CS-190            2
+MU-199            1
+
+COURSE_I  COUNT(ID)
+-------- ----------
+BIO-301           1
+
+12 rows selected.
+
+SQL> select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_n
+ame=c.dept_name and t.course_id=c.course_id group by d.dept_name having count(t.id)>=avg(count(t.id));
+select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name having count(t.id)>=avg(count(t.id))
+
+                                                                                    *
+ERROR at line 1:
+ORA-00935: group function is nested too deeply
+
+
+SQL> with no_of_stud(dept,count) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.count from no_of_stud n where n.count>=avg(n.count);
+with no_of_stud(dept,count) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.count from no_of_stud n where n.count>=avg(n.count)
+
+
+                                                               *
+ERROR at line 1:
+ORA-00934: group function is not allowed here
+
+
+SQL> with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+                                                                                    with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takkes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select no_of_stud.dept,no_of_stud.number from no_of_stud where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select no_of_stud.dept,no_of_stud.number from no_of_stud where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+                                                                                    with no_of_stud(dept,number) as (select d.dept_name,count(t.id) from department d,takkes t,course c where d.dept_name=c.dept_name and t.course_id=c.course_id group by d.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> select* from department;
+
+DEPT_NAME            BUILDING            BUDGET
+-------------------- --------------- ----------
+Biology              Watson               90000
+Comp. Sci.           Taylor              100000
+Elec. Eng.           Taylor               85000
+Finance              Painter             120000
+History              Painter              50000
+Music                Packard              80000
+Physics              Watson               70000
+
+7 rows selected.
+
+SQL> select* from course;
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+BIO-101  Intro. to Biology                                  Biology
+         4
+
+BIO-301  Genetics                                           Biology
+         4
+
+BIO-399  Computational Biology                              Biology
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+CS-101   Intro. to Computer Science                         Comp. Sci.
+         4
+
+CS-190   Game Design                                        Comp. Sci.
+         4
+
+CS-315   Robotics                                           Comp. Sci.
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+CS-319   Image Processing                                   Comp. Sci.
+         3
+
+CS-347   Database System Concepts                           Comp. Sci.
+         3
+
+EE-181   Intro. to Digital Systems                          Elec. Eng.
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+FIN-201  Investment Banking                                 Finance
+         3
+
+HIS-351  World History                                      History
+         3
+
+MU-199   Music Video Production                             Music
+         3
+
+
+COURSE_I TITLE                                              DEPT_NAME
+-------- -------------------------------------------------- --------------------
+   CREDITS
+----------
+PHY-101  Physical Principles                                Physics
+         4
+
+
+13 rows selected.
+
+SQL> with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from takes t,course c where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number);
+with no_of_stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from no_of_stud n where n.number>=avg(n.number)
+                     *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from stud n where n.number>=avg(n.number);
+with stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select n.dept,n.number from stud n where n.number>=avg(n.number)
+               *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select s.dept,s.number from stud s where s.number>=avg(s.number);
+with stud(dept,number) as (select c.dept_name,count(t.id) from course c,takes t where t.course_id=c.course_id group by c.dept_name) select s.dept,s.number from stud s where s.number>=avg(s.number)
+               *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> select dept_name,count(course_id) from course group by dept_name;                                                                                                    DEPT_NAME            COUNT(COURSE_ID)
+-------------------- ----------------
+Elec. Eng.                          1
+Physics                             1
+Comp. Sci.                          5
+Finance                             1
+Biology                             3
+History                             1
+Music                               1
+
+7 rows selected.
+
+SQL> select d.dept_name,avg(i.salary) from department d,instructor i where i.dept_nam
+e=d.dept_name group by d.dept_name having avg(i.salary)>42000;
+
+DEPT_NAME            AVG(I.SALARY)
+-------------------- -------------
+Elec. Eng.                   80000
+Physics                      91000
+Comp. Sci.              77333.3333
+Finance                      85000
+Biology                      72000
+History                      61000
+
+6 rows selected.
+
+SQL> select t.sec_id,count(t.id) from takes t where t.semester='Spring' and t.year=2009 group by t.sec_id;
+
+SEC_ID   COUNT(T.ID)
+-------- -----------
+1                  1
+2                  2
+
+SQL> select p.course_id,p.prereq_id from prereq p where p.prereq_id is not NULL order
+ by p.course_id;
+
+COURSE_I PREREQ_I
+-------- --------
+BIO-301  BIO-101
+BIO-399  BIO-101
+CS-190   CS-101
+CS-315   CS-101
+CS-319   CS-101
+CS-347   CS-101
+EE-181   PHY-101
+
+7 rows selected.
+
+SQL> select* from instructor order by salary desc;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+22222 Einstein             Physics                   95000
+83821 Brandt               Comp. Sci.                92000
+12121 Wu                   Finance                   90000
+33456 Gold                 Physics                   87000
+98345 Kim                  Elec. Eng.                80000
+76543 Singh                Finance                   80000
+45565 Katz                 Comp. Sci.                75000
+76766 Crick                Biology                   72000
+10101 Srinivasan           Comp. Sci.                65000
+58583 Califieri            History                   62000
+32343 El Said              History                   60000
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+15151 Mozart               Music                     40000
+
+12 rows selected.
+
+SQL> with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select t.dept,max(t.number) from total_salary t;
+with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select t.dept,max(t.number) from total_salary t
+                       *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select total_salary.dept,max(total_salary.number) from total_salary;
+with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select total_salary.dept,max(total_salary.number) from total_salary
+                       *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select total_salary.dept,max(total_salary.number) from total_salary;
+with total_salary(dept,number) as (select dept_name,sum(salary) from instructor group by dept_name) select total_salary.dept,max(total_salary.number) from total_salary
+                       *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> select dept_name,avg(salary) from instructor group by dept_name having avg(salary)>42000;
+
+DEPT_NAME            AVG(SALARY)
+-------------------- -----------
+Elec. Eng.                 80000
+Physics                    91000
+Comp. Sci.            77333.3333
+Finance                    85000
+Biology                    72000
+History                    61000
+
+6 rows selected.
+
+SQL> with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number);
+with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number)
+              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number);
+with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number)
+              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number);
+with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number)
+              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number);
+with stud(sec,number) as (select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number)
+              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with cse_stud as(select* from student where dept_name='Comp. Sci.') select i.name from instructor i,cse_stud s where s.dept_name=i.dept_name;
+
+NAME
+--------------------
+Srinivasan
+Srinivasan
+Srinivasan
+Srinivasan
+Katz
+Katz
+Katz
+Katz
+Brandt
+Brandt
+Brandt
+
+NAME
+--------------------
+Brandt
+
+12 rows selected.
+
+SQL> with stud(sec,number) as(select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number);
+with stud(sec,number) as(select t.sec_id,count(t.id) from takes t,section s where t.sec_id=s.section_id and t.course_id=s.course_id and t.semester=s.semester and t.year=s.year and s.semester='Spring' and s.year=2010) select stud.sec,stud.number from stud where stud.number=max(stud.number)
+              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with avg_dept(dept,sal,number) as(select dept_name,avg(salary),count(id) from instructor group by dept_name) select* from avg_dept a where a.salary>50000 and a.number>5;
+with avg_dept(dept,sal,number) as(select dept_name,avg(salary),count(id) from instructor group by dept_name) select* from avg_dept a where a.salary>50000 and a.number>5
+                       *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> with avg_dept(dept,sal,number) as(select dept_name,avg(salary),count(id) from instructor group by dept_name) select* from avg_dept a where a.salary>50000 and a.number>5;
+with avg_dept(dept,sal,number) as(select dept_name,avg(salary),count(id) from instructor group by dept_name) select* from avg_dept a where a.salary>50000 and a.number>5
+                       *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
