@@ -1,0 +1,124 @@
+SQL> create table book(issn numeric(5) not null,title varchar(20),published date,subject varchar(20));
+
+Table created.
+
+SQL> insert into book values(001,'Abc',11-Feb-2001,'Fiction');
+insert into book values(001,'Abc',11-Feb-2001,'Fiction')
+                                     *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into book values(001,'Abc','11-Feb-2001','Fiction');
+
+1 row created.
+
+SQL> insert into book values(002,'Def','12-Mar-2002','Fantasy');
+
+1 row created.
+
+SQL> insert into book values(003,'Ghi','13-Apr-2003','Autobiography');
+
+1 row created.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: fantasy
+old   6:        bk_subject :='&Subject';
+new   6:        bk_subject :='fantasy';
+BEGIN
+*
+ERROR at line 4:
+ORA-06550: line 4, column 1:
+PLS-00103: Encountered the symbol "BEGIN" when expecting one of the following:
+:= ; not null default character
+The symbol ";" was substituted for "BEGIN" to continue.
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: Fantasy
+old   6:        bk_subject :='&Subject'
+new   6:        bk_subject :='Fantasy'
+BEGIN
+*
+ERROR at line 4:
+ORA-06550: line 4, column 1:
+PLS-00103: Encountered the symbol "BEGIN" when expecting one of the following:
+:= ; not null default character
+The symbol ";" was substituted for "BEGIN" to continue.
+ORA-06550: line 8, column 2:
+PLS-00103: Encountered the symbol "DBMS_OUTPUT" when expecting one of the
+following:
+* & = - + ; < / > at in is mod remainder not rem
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2
+like4 likec between || multiset member submultiset
+The symbol "*" was substituted for "DBMS_OUTPUT" to continue.
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: hello
+old   6:        bk_subject :='&Subject'
+new   6:        bk_subject :='hello'
+BEGIN
+*
+ERROR at line 4:
+ORA-06550: line 4, column 1:
+PLS-00103: Encountered the symbol "BEGIN" when expecting one of the following:
+:= ; not null default character
+The symbol ";" was substituted for "BEGIN" to continue.
+ORA-06550: line 8, column 2:
+PLS-00103: Encountered the symbol "DBMS_OUTPUT" when expecting one of the
+following:
+* & = - + ; < / > at in is mod remainder not rem
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2
+like4 likec between || multiset member submultiset
+The symbol "*" was substituted for "DBMS_OUTPUT" to continue.
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: hello
+old   6:        bk_subject :='&Subject'
+new   6:        bk_subject :='hello'
+BEGIN
+*
+ERROR at line 4:
+ORA-06550: line 4, column 1:
+PLS-00103: Encountered the symbol "BEGIN" when expecting one of the following:
+:= ; not null default character
+The symbol ";" was substituted for "BEGIN" to continue.
+ORA-06550: line 8, column 2:
+PLS-00103: Encountered the symbol "DBMS_OUTPUT" when expecting one of the
+following:
+* & = - + ; < / > at in is mod remainder not rem
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2
+like4 likec between || multiset member submultiset
+The symbol "*" was substituted for "DBMS_OUTPUT" to continue.
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: hello
+old   6:        bk_subject :='&Subject';
+new   6:        bk_subject :='hello';
+Input Subject is:hello
+Number of books is0
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: fanatsy
+old   6:        bk_subject :='&Subject';
+new   6:        bk_subject :='fanatsy';
+Input Subject is:fanatsy
+Number of books is0
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\pl_sql_ex.sql"
+Enter value for subject: Fantasy
+old   6:        bk_subject :='&Subject';
+new   6:        bk_subject :='Fantasy';
+Input Subject is:Fantasy
+Number of books is1
+
+PL/SQL procedure successfully completed.
+
+SQL> ^A
