@@ -1,0 +1,44 @@
+create table customer (
+	cid varchar(7) primary key,
+	customer_name varchar(20),
+	address varchar(10),
+	state varchar(2),
+	balance_due numeric(5)
+);
+
+
+create table order1 (
+	ono varchar(7) primary key,
+	order_date varchar(25),
+	CID varchar(7) references customer(cid),
+	product_code varchar(8),
+	quantity numeric(4)
+);
+
+
+
+insert into customer values ('C10001', 'Asnani Brothers', '243, 9-B', 'MP', 5000);
+insert into customer values ('C10002', 'Singh Associates', '243, 9-B', 'MP', 3000);
+insert into customer values ('C10003', 'Gupta Sales', '243, 9-B', 'MP', 1000);
+
+insert into order1 values ('O10001', '11-FEB-2008 11:10:10 AM', 'C10001', 'CD0001', 10);
+insert into order1 values ('O10002', '11-FEB-2008 11:10:10 AM', 'C10001', 'CD0002', 20);
+insert into order1 values ('O10003', '11-FEB-2008 11:10:10 AM', 'C10002', 'CD0003', 12);
+insert into order1 values ('O10004', '11-FEB-2008 11:10:10 AM', 'C10003', 'CD0002', 11);
+insert into order1 values ('O10005', '11-FEB-2008 11:10:10 AM', 'C10003', 'CD0004', 5);
+
+
+
+a.
+select customer_name from customer where balance_due > 4000;
+
+
+b. 
+select customer_name
+from customer c, (select cid MIN_CUST from order1 where quantity = (select min(quantity) from order1))
+where c.cid = MIN_CUST;
+
+c.
+select o1.ono, c.customer_name
+from customer c, order1 o1, order1 o2
+where o1.cid <> o2.cid and o1.product_code = o2.product_code and o1.cid = c.cid order by o1.ono;
