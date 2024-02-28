@@ -1,0 +1,325 @@
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q1.sql"
+Enter value for raise_date: 22-FEB-2024
+old  17:        vRaiseDate:='&raise_date';
+new  17:        vRaiseDate:='22-FEB-2024';
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from salary_raise;
+
+INSTR RAISE_DAT  RAISE_AMT
+----- --------- ----------
+10101 22-FEB-24      65000
+12121 22-FEB-24      90000
+15151 22-FEB-24      40000
+22222 22-FEB-24      95000
+32343 22-FEB-24      60000
+33456 22-FEB-24      87000
+45565 22-FEB-24      75000
+58583 22-FEB-24      62000
+76543 22-FEB-24      80000
+76766 22-FEB-24      72000
+83821 22-FEB-24      92000
+
+INSTR RAISE_DAT  RAISE_AMT
+----- --------- ----------
+98345 22-FEB-24      80000
+
+12 rows selected.
+
+SQL> select* from instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                68250
+12121 Wu                   Finance                   94500
+15151 Mozart               Music                     42000
+22222 Einstein             Physics                   99750
+32343 El Said              History                   63000
+33456 Gold                 Physics                   91350
+45565 Katz                 Comp. Sci.                78750
+58583 Califieri            History                   65100
+76543 Singh                Finance                   84000
+76766 Crick                Biology                   75600
+83821 Brandt               Comp. Sci.                96600
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+98345 Kim                  Elec. Eng.                84000
+
+12 rows selected.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q1.sql"
+Enter value for raise_date: 22-FEB-2024
+old  15:        vRaiseDate:='&raise_date';
+new  15:        vRaiseDate:='22-FEB-2024';
+
+PL/SQL procedure successfully completed.
+
+SQL> desc department1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NAME                                 NOT NULL VARCHAR2(20)
+ BUILDING                                           VARCHAR2(15)
+ BUDGET                                             NUMBER(12,2)
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q1.sql"
+Enter value for raise_date: 22-FEB-2024
+old  16:        vRaiseDate:='&raise_date';
+new  16:        vRaiseDate:='22-FEB-2024';
+
+PL/SQL procedure successfully completed.
+
+SQL> select* from instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.             75245.63
+12121 Wu                   Finance                   99225
+15151 Mozart               Music                     44100
+22222 Einstein             Physics                104737.5
+32343 El Said              History                   66150
+33456 Gold                 Physics                 95917.5
+45565 Katz                 Comp. Sci.             86821.88
+58583 Califieri            History                   68355
+76543 Singh                Finance                   88200
+76766 Crick                Biology                   79380
+83821 Brandt               Comp. Sci.             106501.5
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+98345 Kim                  Elec. Eng.                88200
+
+12 rows selected.
+
+SQL> select* from salary_raise;
+
+INSTR RAISE_DAT  RAISE_AMT
+----- --------- ----------
+10101 22-FEB-24      65000
+12121 22-FEB-24      90000
+15151 22-FEB-24      40000
+22222 22-FEB-24      95000
+32343 22-FEB-24      60000
+33456 22-FEB-24      87000
+45565 22-FEB-24      75000
+58583 22-FEB-24      62000
+76543 22-FEB-24      80000
+76766 22-FEB-24      72000
+83821 22-FEB-24      92000
+
+INSTR RAISE_DAT  RAISE_AMT
+----- --------- ----------
+98345 22-FEB-24      80000
+10101 22-FEB-24      68250
+12121 22-FEB-24      94500
+15151 22-FEB-24      42000
+22222 22-FEB-24      99750
+32343 22-FEB-24      63000
+33456 22-FEB-24      91350
+45565 22-FEB-24      78750
+58583 22-FEB-24      65100
+76543 22-FEB-24      84000
+76766 22-FEB-24      75600
+
+INSTR RAISE_DAT  RAISE_AMT
+----- --------- ----------
+83821 22-FEB-24      96600
+98345 22-FEB-24      84000
+10101 22-FEB-24    71662.5
+45565 22-FEB-24    82687.5
+83821 22-FEB-24     101430
+
+27 rows selected.
+
+SQL> select* from student;
+
+ID    NAME                 DEPT_NAME              TOT_CRED
+----- -------------------- -------------------- ----------
+00128 Zhang                Comp. Sci.                  102
+12345 Shankar              Comp. Sci.                   32
+19991 Brandt               History                      80
+23121 Chavez               Finance                     110
+44553 Peltier              Physics                      56
+45678 Levy                 Physics                      46
+54321 Williams             Comp. Sci.                   54
+55739 Sanchez              Music                        38
+70557 Snow                 Physics                       0
+76543 Brown                Comp. Sci.                   58
+76653 Aoi                  Elec. Eng.                   60
+
+ID    NAME                 DEPT_NAME              TOT_CRED
+----- -------------------- -------------------- ----------
+98765 Bourikas             Elec. Eng.                   98
+98988 Tanaka               Biology                     120
+
+13 rows selected.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ NAME                                      NOT NULL VARCHAR2(20)
+ DEPT_NAME                                          VARCHAR2(20)
+ TOT_CRED                                           NUMBER(3)
+
+SQL> desc course;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ TITLE                                              VARCHAR2(50)
+ DEPT_NAME                                          VARCHAR2(20)
+ CREDITS                                            NUMBER(2)
+
+SQL> desc instructor;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ NAME                                      NOT NULL VARCHAR2(20)
+ DEPT_NAME                                          VARCHAR2(20)
+ SALARY                                             NUMBER(8,2)
+
+SQL> desc section;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ SEC_ID                                    NOT NULL VARCHAR2(8)
+ SEMESTER                                  NOT NULL VARCHAR2(6)
+ YEAR                                      NOT NULL NUMBER(4)
+ BUILDING                                           VARCHAR2(15)
+ ROOM_NUMBER                                        VARCHAR2(7)
+ TIME_SLOT_ID                                       VARCHAR2(4)
+
+SQL> desc takes;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ SEC_ID                                    NOT NULL VARCHAR2(8)
+ SEMESTER                                  NOT NULL VARCHAR2(6)
+ YEAR                                      NOT NULL NUMBER(4)
+ GRADE                                              VARCHAR2(2)
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+        where temp.course_id==teaches.course_id;
+                             *
+ERROR at line 20:
+ORA-06550: line 20, column 23:
+PL/SQL: ORA-00936: missing expression
+ORA-06550: line 18, column 2:
+PL/SQL: SQL Statement ignored
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+        dbms_output.put_line(count);
+                             *
+ERROR at line 34:
+ORA-06550: line 34, column 23:
+PLS-00204: function or pseudo-column 'COUNT' may be used inside a SQL statement
+only
+ORA-06550: line 34, column 2:
+PL/SQL: Statement ignored
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+        select count(*) into count
+                             *
+ERROR at line 30:
+ORA-06550: line 30, column 23:
+PLS-00201: identifier 'COUNT' must be declared
+ORA-06550: line 31, column 2:
+PL/SQL: ORA-00904: : invalid identifier
+ORA-06550: line 30, column 2:
+PL/SQL: SQL Statement ignored
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+BIO-101Intro. to BiologyBiology4
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows
+ORA-06512: at line 18
+
+
+SQL> desc teaches;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ SEC_ID                                    NOT NULL VARCHAR2(8)
+ SEMESTER                                  NOT NULL VARCHAR2(6)
+ YEAR                                      NOT NULL NUMBER(4)
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+BIO-101Intro. to BiologyBiology4
+Crick
+Painter514B
+1
+BIO-301GeneticsBiology4
+Crick
+Painter514A
+1
+BIO-399Computational BiologyBiology3
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found
+ORA-06512: at line 18
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+        dbms_output.put_line(temp.course_id || " " || temp.title || " " || temp.dept_name ||" "|| temp.credits);
+                                                *
+ERROR at line 16:
+ORA-06550: line 16, column 42:
+PLS-00201: identifier ' ' must be declared
+ORA-06550: line 16, column 2:
+PL/SQL: Statement ignored
+ORA-06550: line 28, column 28:
+PLS-00201: identifier ' ' must be declared
+ORA-06550: line 28, column 2:
+PL/SQL: Statement ignored
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+BIO-101Intro. to BiologyBiology4
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows
+ORA-06512: at line 18
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+        where temp.course_id=section.course_id and teaches.id=instructor.id;
+                                                              *
+ERROR at line 26:
+ORA-06550: line 26, column 56:
+PL/SQL: ORA-00904: "INSTRUCTOR"."ID": invalid identifier
+ORA-06550: line 24, column 2:
+PL/SQL: SQL Statement ignored
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab8q3.sql"
+BIO-101Intro. to BiologyBiology4
+Crick
+Painter514B
+1
+BIO-301GeneticsBiology4
+Crick
+Painter514A
+1
+BIO-399Computational BiologyBiology3
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found
+ORA-06512: at line 18
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
