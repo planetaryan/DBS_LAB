@@ -1,0 +1,767 @@
+SQL> desc takes;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ SEC_ID                                    NOT NULL VARCHAR2(8)
+ SEMESTER                                  NOT NULL VARCHAR2(6)
+ YEAR                                      NOT NULL NUMBER(4)
+ GRADE                                              VARCHAR2(2)
+
+SQL> select* from takes;
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+00128 CS-101   1        Fall         2009 A
+00128 CS-347   1        Fall         2009 A-
+12345 CS-101   1        Fall         2009 C
+12345 CS-190   2        Spring       2009 A
+12345 CS-315   1        Spring       2010 A
+12345 CS-347   1        Fall         2009 A
+19991 HIS-351  1        Spring       2010 B
+23121 FIN-201  1        Spring       2010 C+
+44553 PHY-101  1        Fall         2009 B-
+45678 CS-101   1        Fall         2009 F
+45678 CS-101   1        Spring       2010 B+
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+45678 CS-319   1        Spring       2010 B
+54321 CS-101   1        Fall         2009 A-
+54321 CS-190   2        Spring       2009 B+
+55739 MU-199   1        Spring       2010 A-
+76543 CS-101   1        Fall         2009 A
+76543 CS-319   2        Spring       2010 A
+76653 EE-181   1        Spring       2009 C
+98765 CS-101   1        Fall         2009 C-
+98765 CS-315   1        Spring       2010 B
+98988 BIO-101  1        Summer       2009 A
+98988 BIO-301  1        Summer       2010
+
+22 rows selected.
+
+SQL> insert into takes values('11111','EEE-101','1','Fall',2010,'A');
+insert into takes values('11111','EEE-101','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071024) violated - parent key not
+found
+
+
+SQL> insert into takes values('11111','EE-181','1','Fall',2010,'A');
+insert into takes values('11111','EE-181','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071024) violated - parent key not
+found
+
+
+SQL> insert into takes values('12345','EE-181','1','Fall',2010,'A');
+insert into takes values('12345','EE-181','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> insert into takes values('12345','CS-319','1','Fall',2010,'A');
+insert into takes values('12345','CS-319','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> insert into takes values('12345','CS-319','1','Fall',2010,'A');
+insert into takes values('12345','CS-319','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> insert into takes values('12345','FIN-201','1','Fall',2010,'A');
+insert into takes values('12345','FIN-201','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> UPDATE TAKES SET GRADE ='A' WHERE ID='12345' AND COURSE_ID='CS-101';
+
+1 row updated.
+
+SQL> select* from takes;
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+00128 CS-101   1        Fall         2009 A
+00128 CS-347   1        Fall         2009 A-
+12345 CS-101   1        Fall         2009 A
+12345 CS-190   2        Spring       2009 A
+12345 CS-315   1        Spring       2010 A
+12345 CS-347   1        Fall         2009 A
+19991 HIS-351  1        Spring       2010 B
+23121 FIN-201  1        Spring       2010 C+
+44553 PHY-101  1        Fall         2009 B-
+45678 CS-101   1        Fall         2009 F
+45678 CS-101   1        Spring       2010 B+
+
+ID    COURSE_I SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+45678 CS-319   1        Spring       2010 B
+54321 CS-101   1        Fall         2009 A-
+54321 CS-190   2        Spring       2009 B+
+55739 MU-199   1        Spring       2010 A-
+76543 CS-101   1        Fall         2009 A
+76543 CS-319   2        Spring       2010 A
+76653 EE-181   1        Spring       2009 C
+98765 CS-101   1        Fall         2009 C-
+98765 CS-315   1        Spring       2010 B
+98988 BIO-101  1        Summer       2009 A
+98988 BIO-301  1        Summer       2010
+
+22 rows selected.
+
+SQL> UPDATE TAKES SET GRADE ='A-' WHERE ID='12345' AND COURSE_ID='CS-101';
+
+1 row updated.
+
+SQL> insert into takes values('12345','FIN-201','1','Fall',2010,'A');
+insert into takes values('12345','FIN-201','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> create table log_change_Takes (Time_Of_Change timestamp, ID varchar2(5), coursei
+d varchar2(8),sec-id varchar2(8),semester varchar2(6), year number(4), grade varchar2(2));
+create table log_change_Takes (Time_Of_Change timestamp, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year number(4), grade varchar2(2))
+
+            *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table log_change_Takes (Time_Of_Change date, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year number(4), grade varchar2(2));
+create table log_change_Takes (Time_Of_Change date, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year number(4), grade varchar2(2))
+
+       *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table log_change_Takes (Time_Of_Change timestamp, ID varchar2(5), coursei
+d varchar2(8),sec-id varchar2(8),semester varchar2(6), year numeric(4), grade varchar
+2(2));
+create table log_change_Takes (Time_Of_Change timestamp, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year numeric(4), grade varchar2(2))
+
+            *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table log_change_Takes (Time_Of_Change date, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year numeric(4), grade varchar2(2));
+create table log_change_Takes (Time_Of_Change date, ID varchar2(5), courseid varchar2(8),sec-id varchar2(8),semester varchar2(6), year numeric(4), grade varchar2(2))
+
+       *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table log_change_Takes (Time_Of_Change date, ID varchar(5), courseid varchar(8),sec-id varchar(8),semester varchar(6), year number(4), grade varchar(2));     create table log_change_Takes (Time_Of_Change date, ID varchar(5), courseid varchar(8),sec-id varchar(8),semester varchar(6), year number(4), grade varchar(2))
+
+     *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table log_change_Takes (Time_Of_Change date, ID varchar(5), courseid varchar(8),sec_id varchar(8),semester varchar(6), year number(4), grade varchar(2));
+
+Table created.
+
+SQL> drop table log_change_Takes
+  2
+SQL> drop table log_change_Takes;
+
+Table dropped.
+
+SQL> create table log_change_Takes (Time_Of_Change timestamp, ID varchar2(5), courseid varchar2(8),sec_id varchar2(8),semester varchar2(6), year number(4), grade varchar2(2));
+
+Table created.
+
+SQL> insert into takes values('12345','FIN-201','1','Fall',2010,'A');
+insert into takes values('12345','FIN-201','1','Fall',2010,'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> desc takes;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ COURSE_ID                                 NOT NULL VARCHAR2(8)
+ SEC_ID                                    NOT NULL VARCHAR2(8)
+ SEMESTER                                  NOT NULL VARCHAR2(6)
+ YEAR                                      NOT NULL NUMBER(4)
+ GRADE                                              VARCHAR2(2)
+
+SQL> insert into takes values("12345","FIN-201","1","Fall",2010,"A");
+insert into takes values("12345","FIN-201","1","Fall",2010,"A")
+                                                           *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> INSERT INTO takes (ID, courseid,sec_id, semester, year, grade)VALUES ('12345', 'FIN-201', '1','Fall', 2010, 'A');
+INSERT INTO takes (ID, courseid,sec_id, semester, year, grade)VALUES ('12345', 'FIN-201', '1','Fall', 2010, 'A')
+                       *
+ERROR at line 1:
+ORA-00904: "COURSEID": invalid identifier
+
+
+SQL> INSERT INTO takes (ID, course_id,sec_id, semester, year, grade)VALUES ('12345',
+'FIN-201', '1','Fall', 2010, 'A');
+INSERT INTO takes (ID, course_id,sec_id, semester, year, grade)VALUES ('12345', 'FIN-201', '1','Fall', 2010, 'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A66.SYS_C0071023) violated - parent key not
+found
+
+
+SQL> select* from student;
+
+ID    NAME                 DEPT_NAME              TOT_CRED
+----- -------------------- -------------------- ----------
+00128 Zhang                Comp. Sci.                  102
+12345 Shankar              Comp. Sci.                   32
+19991 Brandt               History                      80
+23121 Chavez               Finance                     110
+44553 Peltier              Physics                      56
+45678 Levy                 Physics                      46
+54321 Williams             Comp. Sci.                   54
+55739 Sanchez              Music                        38
+70557 Snow                 Physics                       0
+76543 Brown                Comp. Sci.                   58
+76653 Aoi                  Elec. Eng.                   60
+
+ID    NAME                 DEPT_NAME              TOT_CRED
+----- -------------------- -------------------- ----------
+98765 Bourikas             Elec. Eng.                   98
+98988 Tanaka               Biology                     120
+
+13 rows selected.
+
+SQL> select* from section;
+
+COURSE_I SEC_ID   SEMEST       YEAR BUILDING        ROOM_NU TIME
+-------- -------- ------ ---------- --------------- ------- ----
+BIO-101  1        Summer       2009 Painter         514     B
+BIO-301  1        Summer       2010 Painter         514     A
+CS-101   1        Fall         2009 Packard         101     H
+CS-101   1        Spring       2010 Packard         101     F
+CS-190   1        Spring       2009 Taylor          3128    E
+CS-190   2        Spring       2009 Taylor          3128    A
+CS-315   1        Spring       2010 Watson          120     D
+CS-319   1        Spring       2010 Watson          100     B
+CS-319   2        Spring       2010 Taylor          3128    C
+CS-347   1        Fall         2009 Taylor          3128    A
+EE-181   1        Spring       2009 Taylor          3128    C
+
+COURSE_I SEC_ID   SEMEST       YEAR BUILDING        ROOM_NU TIME
+-------- -------- ------ ---------- --------------- ------- ----
+FIN-201  1        Spring       2010 Packard         101     B
+HIS-351  1        Spring       2010 Painter         514     C
+MU-199   1        Spring       2010 Packard         101     D
+PHY-101  1        Fall         2009 Watson          100     A
+
+15 rows selected.
+
+SQL> insert into takes values('12345','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> insert into takes values('12345','CS-319','1','Spring',2010,'A');
+insert into takes values('12345','CS-319','1','Spring',2010,'A')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (A66.SYS_C0071022) violated
+
+
+SQL> insert into takes values('23121','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> insert into takes values('00128','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> delete from takes where id='19991' and course_id='CS-319');
+delete from takes where id='19991' and course_id='CS-319')
+                                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> delete from takes where id='19991' and course_id='CS-319';
+
+1 row deleted.
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> desc log_change_Takes;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TIME_OF_CHANGE                                     TIMESTAMP(6)
+ ID                                                 VARCHAR2(5)
+ COURSEID                                           VARCHAR2(8)
+ SEC_ID                                             VARCHAR2(8)
+ SEMESTER                                           VARCHAR2(6)
+ YEAR                                               NUMBER(4)
+ GRADE                                              VARCHAR2(2)
+
+SQL> delete from takes where id='19991' and course_id='CS-319';
+
+1 row deleted.
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+no rows selected
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+BEFORE INSERT OR UPDATE OF takes
+                           *
+ERROR at line 2:
+ORA-00904: "TAKES": invalid identifier
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+
+Trigger created.
+
+SQL> delete from takes where id='19991' and course_id='CS-319';
+19991CS-3191Spring2010A
+
+1 row deleted.
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+SQL> update takes set grade='A-' where id='12345' and course_id='CS-190';
+A
+A-
+
+1 row updated.
+
+SQL> update takes set grade='A' where id='12345' and course_id='CS-190';
+A-
+A
+
+1 row updated.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+
+Warning: Trigger created with compilation errors.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+
+Trigger created.
+
+SQL> update takes set grade='A-' where id='12345' and course_id='CS-190';
+
+1 row updated.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+
+SQL> delete from takes where id='19991' and course_id='CS-319';
+
+1 row deleted.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+13-MAR-24 10.39.48.483000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+
+Trigger created.
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+13-MAR-24 10.39.48.483000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.40.36.764000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q1.sql"
+
+Trigger created.
+
+SQL> delete from takes where id='19991' and course_id='CS-319';
+
+1 row deleted.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+13-MAR-24 10.39.48.483000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.40.36.764000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.41.51.169000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+SQL> insert into takes values('19991','CS-319','1','Spring',2010,'A');
+
+1 row created.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+13-MAR-24 10.39.48.483000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.40.36.764000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.41.51.169000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.42.08.540000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+6 rows selected.
+
+SQL> update takes set grade='A-' where id='12345' and course_id='CS-190';
+
+1 row updated.
+
+SQL> select* from log_change_Takes;
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.29.05.406000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.39.30.622000 AM
+12345 CS-190   2        Spring       2009 A-
+
+13-MAR-24 10.39.48.483000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.40.36.764000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.41.51.169000 AM
+19991 CS-319   1        Spring       2010 A
+
+13-MAR-24 10.42.08.540000 AM
+19991 CS-319   1        Spring       2010 A
+
+
+TIME_OF_CHANGE
+---------------------------------------------------------------------------
+ID    COURSEID SEC_ID   SEMEST       YEAR GR
+----- -------- -------- ------ ---------- --
+13-MAR-24 10.42.40.477000 AM
+12345 CS-190   2        Spring       2009 A-
+
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc instructor;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ NAME                                      NOT NULL VARCHAR2(20)
+ DEPT_NAME                                          VARCHAR2(20)
+ SALARY                                             NUMBER(8,2)
+
+SQL> create table log_change_Instructor( id varchar2(5),name varchar2(20),dept_name varchar2(20),salary number(8,2));
+
+Table created.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q2.sql"
+FOR EACH ROW
+*
+ERROR at line 4:
+ORA-00969: missing ON keyword
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q2.sql"
+FOR EACH ROW
+*
+ERROR at line 4:
+ORA-00969: missing ON keyword
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q2.sql"
+FOR EACH ROW
+*
+ERROR at line 4:
+ORA-00903: invalid table name
+
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q2.sql"
+
+Trigger created.
+
+SQL> select* from instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                65000
+12121 Wu                   Finance                   90000
+15151 Mozart               Music                     40000
+22222 Einstein             Physics                   95000
+32343 El Said              History                   60000
+33456 Gold                 Physics                   87000
+45565 Katz                 Comp. Sci.                75000
+58583 Califieri            History                   62000
+76543 Singh                Finance                   80000
+76766 Crick                Biology                   72000
+83821 Brandt               Comp. Sci.                92000
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+98345 Kim                  Elec. Eng.                80000
+
+12 rows selected.
+
+SQL> update instructor set name='Ramesh' where name='Wu';
+
+1 row updated.
+
+SQL> select* from log_change_Instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+12121 Wu                   Finance                   90000
+
+SQL> update instructor set name='Wu' where name='Ramesh';
+
+1 row updated.
+
+SQL> select* from log_change_Instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+12121 Wu                   Finance                   90000
+12121 Ramesh               Finance                   90000
+
+SQL> commit;
+
+Commit complete.
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q3.sql"
+
+Warning: Trigger created with compilation errors.
+
+SQL> desc department;
+ERROR:
+ORA-04043: object department does not exist
+
+
+SQL> desc department1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NAME                                 NOT NULL VARCHAR2(20)
+ BUILDING                                           VARCHAR2(15)
+ BUDGET                                             NUMBER(12,2)
+
+SQL> desc instructor;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(5)
+ NAME                                      NOT NULL VARCHAR2(20)
+ DEPT_NAME                                          VARCHAR2(20)
+ SALARY                                             NUMBER(8,2)
+
+SQL> @"C:\Users\ugcse.PG-CP.000\Documents\AIML_A66\lab10q3.sql"
+
+Warning: Trigger created with compilation errors.
+
+SQL> select* from instructor;
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+10101 Srinivasan           Comp. Sci.                65000
+12121 Wu                   Finance                   90000
+15151 Mozart               Music                     40000
+22222 Einstein             Physics                   95000
+32343 El Said              History                   60000
+33456 Gold                 Physics                   87000
+45565 Katz                 Comp. Sci.                75000
+58583 Califieri            History                   62000
+76543 Singh                Finance                   80000
+76766 Crick                Biology                   72000
+83821 Brandt               Comp. Sci.                92000
+
+ID    NAME                 DEPT_NAME                SALARY
+----- -------------------- -------------------- ----------
+98345 Kim                  Elec. Eng.                80000
+
+12 rows selected.
+
+SQL> select* from department;
+select* from department
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select* from department1;
+
+DEPT_NAME            BUILDING            BUDGET
+-------------------- --------------- ----------
+Biology              Watson               90000
+Comp. Sci.           Taylor              100000
+Elec. Eng.           Taylor               85000
+Finance              Painter             120000
+History              Painter              50000
+Music                Packard              80000
+Physics              Watson               70000
+
+7 rows selected.
+
+SQL> update instructor set salary=100000 where dept_name='Biology';
+update instructor set salary=100000 where dept_name='Biology'
+       *
+ERROR at line 1:
+ORA-04098: trigger 'A66.LOG_CHECK_INSTRUCTOR' is invalid and failed
+re-validation
